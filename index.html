@@ -182,7 +182,26 @@
     </fieldset>
 
     <fieldset>
-      <legend><span class="legend-num">5</span> Bevestiging</legend>
+      <legend><span class="legend-num">5</span> Bankgegevens</legend>
+      <p class="hint" style="margin:-8px 0 16px;">Nodig voor de terugbetaling van je waarborg.</p>
+      <div class="grid">
+        <div class="field full">
+          <label for="iban">IBAN-rekeningnummer</label>
+          <input type="text" id="iban" name="iban" autocomplete="off" placeholder="BE68 5390 0754 7034" required>
+          <span class="hint">Internationaal rekeningnummer, bv. BE68 5390 0754 7034.</span>
+          <span class="error-msg" id="err-iban">⚠ Vul een geldig IBAN-rekeningnummer in.</span>
+        </div>
+        <div class="field">
+          <label for="bic">BIC / SWIFT-code</label>
+          <input type="text" id="bic" name="bic" autocomplete="off" placeholder="GKCCBEBB" required>
+          <span class="hint">8 of 11 tekens, bv. GKCCBEBB.</span>
+          <span class="error-msg" id="err-bic">⚠ Vul een geldige BIC-code in.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="legend-num">6</span> Bevestiging</legend>
       <div class="field full">
         <div class="checkbox-field">
           <input type="checkbox" id="akkoord" name="akkoord" required>

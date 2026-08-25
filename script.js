@@ -18,6 +18,10 @@
   var phoneRe = /^(\+?\d[\d\s.\-]{7,14}\d)$/;
   var postcodeRe = /^\d{4}$/;
 
+  function isValidEmail(raw){
+    return emailRe.test(String(raw).trim());
+  }
+
   // Belgische rijksregisternummer-validatie (modulo-97 controlegetal).
   function isValidRijksregisternummer(raw){
     var digits = String(raw).replace(/[^0-9]/g, '');
@@ -32,6 +36,31 @@
     return checkDigits === checkBefore2000 || checkDigits === checkFrom2000;
   }
 
+  // IBAN-validatie: structuur + mod-97 controlegetal (ISO 7064).
+  function isValidIBAN(raw){
+    var iban = String(raw).replace(/\s+/g, '').toUpperCase();
+    if(!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) return false;
+
+    var rearranged = iban.slice(4) + iban.slice(0, 4);
+    var converted = rearranged.replace(/[A-Z]/g, function(ch){
+      return (ch.charCodeAt(0) - 55).toString();
+    });
+
+    // Mod 97 op een grote numerieke string, stap voor stap (blijft binnen veilige getalgrenzen).
+    var remainder = converted;
+    while(remainder.length > 2){
+      var chunk = remainder.slice(0, 9);
+      remainder = (parseInt(chunk, 10) % 97) + remainder.slice(chunk.length);
+    }
+    return parseInt(remainder, 10) % 97 === 1;
+  }
+
+  // BIC/SWIFT-validatie: 8 of 11 tekens (bankcode + landcode + locatiecode [+ filiaalcode]).
+  function isValidBIC(raw){
+    var bic = String(raw).replace(/\s+/g, '').toUpperCase();
+    return /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/.test(bic);
+  }
+
   function validators(){
     return {
       voornaam: function(v){ return v.trim().length > 0; },
@@ -40,7 +69,7 @@
         if(!v) return false;
         return v >= minBirth && v <= maxBirth;
       },
-      email: function(v){ return emailRe.test(v.trim()); },
+      email: function(v){ return isValidEmail(v); },
       telefoon: function(v){ return phoneRe.test(v.trim()); },
       straat: function(v){ return v.trim().length > 2; },
       postcode: function(v){ return postcodeRe.test(v.trim()); },
@@ -61,6 +90,8 @@
         if(v === '') return true; // optioneel veld: enkel valideren indien ingevuld
         return isValidRijksregisternummer(v);
       },
+      iban: function(v){ return isValidIBAN(v); },
+      bic: function(v){ return isValidBIC(v); },
       akkoord: function(v, el){ return el.checked; }
     };
   }
