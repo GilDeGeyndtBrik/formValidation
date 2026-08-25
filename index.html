@@ -1,11 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inschrijving kot — Brik</title>
+<meta name="theme-color" content="#da2037">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="wordmark">brik<span class="dot">.</span></span>
+    <span class="tagline">Student in Brussel</span>
+  </div>
+</div>
+
+<div class="hero">
+  <span class="eyebrow">🔑 Inschrijving kot</span>
+  <h1>Schrijf je in voor een kot</h1>
+  <p>Vul onderstaand formulier volledig in. Op basis van je gegevens en voorkeuren gaan we op zoek naar een kot dat bij je past en nemen we zo snel mogelijk contact met je op.</p>
+</div>
+
+<main>
+  <div class="summary-alert" id="summaryAlert" role="alert" tabindex="-1">
+    Er staan nog fouten in het formulier. Controleer de gemarkeerde velden hieronder.
+  </div>
+
+  <form id="kotForm" novalidate>
+
+    <fieldset>
+      <legend><span class="legend-num">1</span> Persoonlijke gegevens</legend>
+      <div class="grid">
+        <div class="field">
+          <label for="voornaam">Voornaam</label>
+          <input type="text" id="voornaam" name="voornaam" autocomplete="given-name" required>
+          <span class="error-msg" id="err-voornaam">⚠ Vul je voornaam in.</span>
+        </div>
+        <div class="field">
+          <label for="achternaam">Achternaam</label>
+          <input type="text" id="achternaam" name="achternaam" autocomplete="family-name" required>
+          <span class="error-msg" id="err-achternaam">⚠ Vul je achternaam in.</span>
+        </div>
+        <div class="field">
+          <label for="geboortedatum">Geboortedatum</label>
+          <input type="date" id="geboortedatum" name="geboortedatum" autocomplete="bday" required>
+          <span class="error-msg" id="err-geboortedatum">⚠ Vul een geldige geboortedatum in.</span>
+        </div>
+        <div class="field">
+          <label for="nationaliteit">Nationaliteit <span class="opt">(optioneel)</span></label>
+          <input type="text" id="nationaliteit" name="nationaliteit" autocomplete="country-name">
+        </div>
+        <div class="field full">
+          <label for="rijksregisternummer">Rijksregisternummer <span class="opt">(optioneel, indien reeds gekend)</span></label>
+          <input type="text" id="rijksregisternummer" name="rijksregisternummer" inputmode="numeric" autocomplete="off" placeholder="JJ.MM.DD-XXX.XX">
+          <span class="hint">11 cijfers, bv. 93.05.15-084.96. Nog geen rijksregisternummer? Laat dit veld leeg.</span>
+          <span class="error-msg" id="err-rijksregisternummer">⚠ Vul een geldig rijksregisternummer in (11 cijfers, geldig controlegetal).</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="legend-num">2</span> Contactgegevens</legend>
+      <div class="grid">
+        <div class="field">
+          <label for="email">E-mailadres</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+          <span class="error-msg" id="err-email">⚠ Vul een geldig e-mailadres in.</span>
+        </div>
+        <div class="field">
+          <label for="telefoon">Telefoonnummer</label>
+          <input type="tel" id="telefoon" name="telefoon" autocomplete="tel" placeholder="+32 4XX XX XX XX" required>
+          <span class="error-msg" id="err-telefoon">⚠ Vul een geldig telefoonnummer in.</span>
+        </div>
+        <div class="field full">
+          <label for="straat">Huidig adres (straat en nummer)</label>
+          <input type="text" id="straat" name="straat" autocomplete="street-address" required>
+          <span class="error-msg" id="err-straat">⚠ Vul je straat en huisnummer in.</span>
+        </div>
+        <div class="field">
+          <label for="postcode">Postcode</label>
+          <input type="text" id="postcode" name="postcode" inputmode="numeric" autocomplete="postal-code" placeholder="1000" required>
+          <span class="error-msg" id="err-postcode">⚠ Vul een geldige postcode in (4 cijfers).</span>
+        </div>
+        <div class="field">
+          <label for="gemeente">Gemeente</label>
+          <input type="text" id="gemeente" name="gemeente" autocomplete="address-level2" required>
+          <span class="error-msg" id="err-gemeente">⚠ Vul je gemeente in.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="legend-num">3</span> Studie-informatie</legend>
+      <div class="grid">
+        <div class="field full">
+          <label for="instelling">Onderwijsinstelling</label>
+          <select id="instelling" name="instelling" required>
+            <option value="" selected disabled>Kies je instelling</option>
+            <option value="VUB">Vrije Universiteit Brussel (VUB)</option>
+            <option value="ULB">Université libre de Bruxelles (ULB)</option>
+            <option value="EhB">Erasmushogeschool Brussel</option>
+            <option value="KU Leuven Brussel">KU Leuven – Campus Brussel</option>
+            <option value="Odisee">Odisee</option>
+            <option value="LUCA">LUCA School of Arts</option>
+            <option value="Thomas More">Thomas More</option>
+            <option value="KCB">Koninklijk Conservatorium Brussel</option>
+            <option value="Andere">Andere</option>
+          </select>
+          <span class="error-msg" id="err-instelling">⚠ Kies je onderwijsinstelling.</span>
+        </div>
+        <div class="field">
+          <label for="studierichting">Studierichting</label>
+          <input type="text" id="studierichting" name="studierichting" required>
+          <span class="error-msg" id="err-studierichting">⚠ Vul je studierichting in.</span>
+        </div>
+        <div class="field">
+          <label for="jaar">Academiejaar</label>
+          <select id="jaar" name="jaar" required>
+            <option value="" selected disabled>Kies je jaar</option>
+            <option>Voorbereidingsjaar</option>
+            <option>1e bachelor</option>
+            <option>2e bachelor</option>
+            <option>3e bachelor</option>
+            <option>Master</option>
+            <option>Postgraduaat / doctoraat</option>
+            <option>Andere</option>
+          </select>
+          <span class="error-msg" id="err-jaar">⚠ Kies je academiejaar.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="legend-num">4</span> Kotvoorkeuren</legend>
+      <div class="grid">
+        <div class="field">
+          <label for="startdatum">Gewenste startdatum</label>
+          <input type="date" id="startdatum" name="startdatum" required>
+          <span class="error-msg" id="err-startdatum">⚠ Kies een startdatum vanaf vandaag.</span>
+        </div>
+        <div class="field">
+          <label for="duur">Gewenste periode</label>
+          <select id="duur" name="duur" required>
+            <option value="" selected disabled>Kies een periode</option>
+            <option>Volledig academiejaar (sept–juni)</option>
+            <option>Volledig jaar (incl. zomer)</option>
+            <option>Kort verblijf / stage</option>
+            <option>Nog niet gekend</option>
+          </select>
+          <span class="error-msg" id="err-duur">⚠ Kies de gewenste periode.</span>
+        </div>
+        <div class="field">
+          <label for="type">Type kot</label>
+          <select id="type" name="type" required>
+            <option value="" selected disabled>Kies een type</option>
+            <option>Individueel kot</option>
+            <option>Gedeeld kot (cohousing)</option>
+            <option>Studio</option>
+            <option>Geen voorkeur</option>
+          </select>
+          <span class="error-msg" id="err-type">⚠ Kies een type kot.</span>
+        </div>
+        <div class="field">
+          <label for="budget">Maximumbudget per maand (€)</label>
+          <input type="number" id="budget" name="budget" min="50" max="2000" step="10" placeholder="450" required>
+          <span class="error-msg" id="err-budget">⚠ Vul een budget in tussen €50 en €2000.</span>
+        </div>
+        <div class="field full">
+          <label for="locatie">Voorkeurbuurt <span class="opt">(optioneel)</span></label>
+          <input type="text" id="locatie" name="locatie" placeholder="bv. Elsene, Sint-Gillis, dicht bij VUB...">
+        </div>
+        <div class="field full">
+          <label for="opmerkingen">Extra wensen of opmerkingen <span class="opt">(optioneel)</span></label>
+          <textarea id="opmerkingen" name="opmerkingen" placeholder="Bv. gelijkvloers, huisdierenvriendelijk, rolstoeltoegankelijk..."></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="legend-num">5</span> Bevestiging</legend>
+      <div class="field full">
+        <div class="checkbox-field">
+          <input type="checkbox" id="akkoord" name="akkoord" required>
+          <label for="akkoord">Ik ga akkoord met de <a href="#" target="_blank" rel="noopener">privacyverklaring</a> en het kotreglement van Brik.</label>
+        </div>
+        <span class="error-msg" id="err-akkoord" style="margin-left:28px;">⚠ Je moet akkoord gaan om je in te schrijven.</span>
+      </div>
+      <div class="field full" style="margin-top:14px;">
+        <div class="checkbox-field">
+          <input type="checkbox" id="nieuwsbrief" name="nieuwsbrief">
+          <label for="nieuwsbrief">Hou me op de hoogte via de Brik-nieuwsbrief <span class="opt">(optioneel)</span></label>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit">Inschrijving versturen</button>
+      <span class="required-note">Alle velden zijn verplicht, tenzij anders aangegeven.</span>
+    </div>
+  </form>
+
+  <div class="success-panel" id="successPanel" role="status" tabindex="-1">
+    <div class="success-check">✓</div>
+    <h2>Je inschrijving is verstuurd!</h2>
+    <p>Bedankt voor je inschrijving. Het Brik-team bekijkt je gegevens en neemt zo snel mogelijk contact met je op over een geschikt kot.</p>
+    <button type="button" id="resetBtn">Nieuwe inschrijving</button>
+  </div>
+</main>
+
+<footer>
+  Brik vzw · Studentenvoorzieningen Brussel · Dit formulier is bedoeld als demo voor formuliervalidatie.
+</footer>
+
+<script src="script.js" defer></script>
+
 </body>
 </html>
